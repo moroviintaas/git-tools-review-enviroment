@@ -33,9 +33,9 @@ WORKDIR /home/user
 VOLUME /home/user/data
 VOLUME /home/user/.ssh
 VOLUME /home/user/pubkeys
-VOLUME /home/user/scripts
+VOLUME /data/scripts
 
 
 
-ENTRYPOINT ["/home/user/scripts/run.sh"]
-#ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT ["/data/scripts/run.sh"]
+

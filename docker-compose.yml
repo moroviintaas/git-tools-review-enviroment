@@ -23,7 +23,7 @@ services:
       - ./storage/client/data/client1:/home/user/data
       - ./storage/client/keys/client1:/home/user/.ssh
       - ./storage/client/pubkeys/client1:/home/user/pubkeys
-      - ./storage/client/scripts:/home/user/scripts
+      - ./client/scripts:/data/scripts
     tty: true
 
 
@@ -48,7 +48,7 @@ services:
       - ./storage/client/data/client2:/home/user/data
       - ./storage/client/keys/client2:/home/user/.ssh
       - ./storage/client/pubkeys/client2:/home/user/pubkeys
-      - ./storage/client/scripts:/home/user/scripts
+      - ./client/scripts:/data/scripts
     tty: true
 
   git-client3:
@@ -72,7 +72,7 @@ services:
       - ./storage/client/data/client3:/home/user/data
       - ./storage/client/keys/client3:/home/user/.ssh
       - ./storage/client/pubkeys/client3:/home/user/pubkeys
-      - ./storage/client/scripts:/home/user/scripts
+      - ./client/scripts:/data/scripts
     tty: true
 
   postfix-server:

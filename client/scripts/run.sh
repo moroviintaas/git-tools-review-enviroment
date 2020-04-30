@@ -1,12 +1,11 @@
 #!/bin/sh
 #client run
 
-
+SCRIPTS_DIR=/data/scripts
 DIR=/home/user
 USERNAME=`cat $DIR/data/userinfo | grep username | cut -d: -f 2`
 
-
-/home/user/scripts/set_dns.sh
+${SCRIPTS_DIR}/set_dns.sh
 
 adduser --group sshusers
 adduser --home /home/user/data  --shell /bin/bash $USERNAME &&
@@ -26,7 +25,7 @@ echo "export ENV" >> /home/user/data/.profile
 
 #echo $DNS_ADDR
 #/home/user/scripts/set_dns.sh
-su - $USERNAME -c '/home/user/scripts/set_client.sh'
+su - $USERNAME -c ${SCRIPTS_DIR}/set_client.sh
 
 /bin/sh -i
 
