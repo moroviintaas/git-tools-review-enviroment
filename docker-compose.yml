@@ -1,0 +1,131 @@
+version: "3.7"
+services:
+
+
+  git-client1:
+    build:
+      context: client
+      args:
+       username: client1
+    hostname: client1
+    env_file:
+      - ./client/vars.env
+    environment:
+      - CLIENT_NAME=client1
+    domainname: bmail.pl
+    labels:
+      role: "Git client #1"
+    container_name: git-client_1
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.11
+    volumes:
+      - ./storage/client/data/client1:/home/user/data
+      - ./storage/client/keys/client1:/home/user/.ssh
+      - ./storage/client/pubkeys/client1:/home/user/pubkeys
+      - ./storage/client/scripts:/home/user/scripts
+    tty: true
+
+
+  git-client2:
+    build:
+      context: client
+      args:
+       username: client2
+    hostname: client2
+    env_file:
+      - ./client/vars.env
+    environment:
+      - CLIENT_NAME=client2
+    domainname: bmail.pl    
+    labels:
+      role: "Git client #2"
+    container_name: git-client_2
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.12
+    volumes:
+      - ./storage/client/data/client2:/home/user/data
+      - ./storage/client/keys/client2:/home/user/.ssh
+      - ./storage/client/pubkeys/client2:/home/user/pubkeys
+      - ./storage/client/scripts:/home/user/scripts
+    tty: true
+
+  git-client3:
+    build:
+      context: client
+      args:
+       username: client3
+    hostname: client3
+    env_file:
+      - ./client/vars.env
+    environment:
+      - CLIENT_NAME=client3
+    domainname: bmail.pl
+    labels:
+      role: "Git client #3"
+    container_name: git-client_3
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.13
+    volumes:
+      - ./storage/client/data/client3:/home/user/data
+      - ./storage/client/keys/client3:/home/user/.ssh
+      - ./storage/client/pubkeys/client3:/home/user/pubkeys
+      - ./storage/client/scripts:/home/user/scripts
+    tty: true
+
+  postfix-server:
+    build: 
+      context: mail
+    hostname: mail
+    domainname: bmail.pl
+    ports:
+      - 1025:25/tcp
+    labels:
+      role: "SMTP server"
+    container_name: postfix
+    ports:
+      - "25:25/udp"
+      - "25:25/tcp"
+      - "143:143/udp"
+      - "143:143/tcp"
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.20
+    volumes: 
+      #- ./storage/mail/etc/postfix:/data/etc/postfix
+      - ./storage/mail/etc:/data/etc
+      - ./storage/mail/var/spool:/data/var/spool
+      - ./storage/mail/home:/home
+      #- ./storage/mail/etc/dovecot:/data/etc/dovecot
+      - ./configs/mail:/data/var/configs
+    tty: true
+    #command: tail -f /dev/null
+
+  bind:
+    restart: always
+    build:
+      context: dns
+    hostname: dns
+    domainname: bmail.pl
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "10000:10000/tcp"
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.30
+    volumes:
+      - ./storage/dns/data:/data
+    tty: true
+
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.20.0.0/24"
+
+      

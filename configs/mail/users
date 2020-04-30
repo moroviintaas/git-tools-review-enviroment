@@ -1,0 +1,5 @@
+client1:client1
+client2:client2
+client3:client3
+phabricator_admin:admin
+phabricator_notify:admin

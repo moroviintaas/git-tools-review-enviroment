@@ -1,0 +1,7 @@
+# See man 5 aliases for format
+postmaster:    root
+client1@bmail.pl:	client1
+client2@bmail.pl:	client2
+client3@bmail.pl:	client3
+mail@bmail.pl:		root
+admin@bmail.pl:		root
