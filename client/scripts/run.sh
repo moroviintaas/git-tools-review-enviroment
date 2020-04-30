@@ -3,8 +3,7 @@
 
 SCRIPTS_DIR=/data/scripts
 DIR=/home/user
-USERNAME=`cat $DIR/data/userinfo | grep username | cut -d: -f 2`
-
+USERNAME=${CLIENT_NAME}
 ${SCRIPTS_DIR}/set_dns.sh
 
 adduser --group sshusers
